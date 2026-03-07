@@ -7,9 +7,9 @@ class TestPlayer(unittest.TestCase):
     """
 
     def setUp(self):
-        """Set up a standard player instance for testing."""
-        self.test_id = "P001"
-        self.test_name = "Alex"
+        """Set up a standard player instance for testing with personalized data."""
+        self.test_id = "KD001" 
+        self.test_name = "Khushboo"
         self.player = Player(self.test_id, self.test_name)
 
     def test_uid_property(self):
@@ -21,7 +21,7 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(self.player.name, self.test_name)
 
     def test_string_representation(self):
-        """Verify that __str__ returns the expected format."""
+       
         expected_string = f"ID: {self.test_id} | Player: {self.test_name}"
         self.assertEqual(str(self.player), expected_string)
 
