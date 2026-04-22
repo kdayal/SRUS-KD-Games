@@ -24,9 +24,9 @@ class TestPlayerList(unittest.TestCase):
         self.list.insert_head(self.p1)
         self.list.insert_tail(p2)
         
-        # Check if tail is correct
+        
         self.assertEqual(self.list._tail.player.name, "Amit")
-        # Check if head is connected to tail
+       
         self.assertEqual(self.list._head.next.player.name, "Amit")
 
     def test_delete_head(self):
