@@ -166,7 +166,7 @@ AssertionError: Lists differ: [...] != [...]
 ##### 4.3.4.1 Question: why did the equality comparison fail?
 Why did the test fail (note: if it doesn't fail, it means there is something you have already done before you were asked to do so - if that's the case, you need to figure out what that is!)?
 -------
-> Answer here
+
 The equality comparison failed because Python compares objects by reference unless the __eq__ method is implemented.
 
 Even though the players had the same values (uid, name, score), they were different instances in memory. Therefore, the comparison failed.
@@ -214,7 +214,7 @@ def sort_quickly(arr):
 
 What is the expected time and space complexity of the above algorithm? You can answer using big O or in plain English but in both cases you MUST justify your answer.
 
-> Answer here
+
 Time Complexity:
 O(n log n) average case, O(n²) worst case.
 
@@ -357,7 +357,7 @@ Provide a reason why this test failed (if you got a recursion errors, you need t
 
 If your implementation did not fail, you must nevertheless explain why the senior developers algorithm has worse space complexity for presorted values.
 
-> Answer here
+
 The algorithm fails for presorted input because it always selects the first element as the pivot. 
 
 When the list is already sorted, all elements are placed in one partition (either left or right), resulting in highly unbalanced recursion. This causes the recursion depth to increase significantly, leading to a RecursionError.
@@ -381,19 +381,13 @@ Propose a fix to your sorting algorithm that fixes this issue.
 
 ## 6. Task: Authenticity of in class work
 
-Complete the following snippet before you submit:
 
-```text
+Or (if not completed in class):
+
 I, Khushboo Dayal, completed this work outside of the scheduled class hours. I was granted permission by my assessor (Alex) via email to complete and submit the assessment by 26th April (End of Week 11). I confirm that this work is entirely my own and has not been copied from any other student or external source.
 
 I understand that this submission represents my own skills in applying advanced programming techniques, debugging, and implementing sorting algorithms in Python.
 
-Or (if not completed in class):
-
-```text
-I, <name and student number>, completed this work outside of the scheduled hours. I emailed <assessors name>, on <date>, along with my documented reason for non-attendance, and have scheduled a time to meet to discuss my work.
-
-I understand that until I meet my assessor to confirm that this work is a valid and true representation of my abilities to write and debug a sorting algorithm in Python, this submission cannot be considered complete.
 
 ```
 
