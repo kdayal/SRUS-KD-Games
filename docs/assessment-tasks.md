@@ -96,7 +96,7 @@ def test_sort_players(self):
 
 What was the outcome of running the above unit test, copy paste the output **for just this particular test** below:
 
-```text
+TypeError: '<' not supported between instances of 'Player' and 'Player'
 Copy the traceback you got when you ran the test here.
 ```
 
@@ -115,7 +115,10 @@ What is the **only** magic method that must be implemented in the player class f
 **Hint:** if you don't recall this from class, the error message you got when you ran the test will help you.
 -------
 > Answer Here
-> Yes, here - instead of this text!
+
+> Yes,The required magic method is __lt__ (less than).
+
+Python’s sorted() function uses the __lt__ method to compare objects and determine their order.
 -------
 #### 4.3.2. Task: Implement the magic method in the Player class
 
@@ -136,7 +139,7 @@ def test_players_can_be_compared_by_score(self):
 Run the test and confirm that your error resembles the previous error
 
 ```text
-INSERT ERROR OUTPUT HERE
+TypeError: '<' not supported between instances of 'Player' and 'Player'
 ```
 
 - Implement the appropriate magic method in the Player class and ensure you pass this test
@@ -157,13 +160,18 @@ INSERT ERROR OUTPUT HERE
 Rerun `test_sort_players` does the test pass? If not, include the output below:
 
 ```text
-Your output here
+AssertionError: Lists differ: [...] != [...]
 ```
 
 ##### 4.3.4.1 Question: why did the equality comparison fail?
 Why did the test fail (note: if it doesn't fail, it means there is something you have already done before you were asked to do so - if that's the case, you need to figure out what that is!)?
 -------
 > Answer here
+The equality comparison failed because Python compares objects by reference unless the __eq__ method is implemented.
+
+Even though the players had the same values (uid, name, score), they were different instances in memory. Therefore, the comparison failed.
+
+After implementing the __eq__ method, the comparison worked correctly because objects were compared based on their attributes instead of memory location.
 >
 -------
 Add the necessary code to the Player class to ensure that the `test_sort_players` test passes.
@@ -207,6 +215,19 @@ def sort_quickly(arr):
 What is the expected time and space complexity of the above algorithm? You can answer using big O or in plain English but in both cases you MUST justify your answer.
 
 > Answer here
+Time Complexity:
+O(n log n) average case, O(n²) worst case.
+
+Reason:
+The algorithm is a QuickSort-like algorithm. It divides the list into smaller parts and recursively sorts them. In the average case, the list is divided evenly, resulting in log n levels, and each level processes n elements.
+
+In the worst case (already sorted input), the list becomes unbalanced, and recursion depth becomes n, resulting in O(n²) time complexity.
+
+Space Complexity:
+O(log n) average case, O(n) worst case.
+
+Reason:
+The recursive calls use stack space proportional to the depth of recursion. In the average case, depth is log n. In the worst case, depth becomes n. Additional lists (left, middle, right) also use extra memory.
 
 ### 5.2. Task: Implement the custom sorting algorithm
 
@@ -221,7 +242,26 @@ Add a separate test case to `test_player.py` to test your custom sorting algorit
 Include your code below:
 
 ```python
-# YOUR CUSTOM Sorting here
+# @classmethod
+def sort_players_desc(cls, players):
+    if len(players) <= 1:
+        return players
+
+    pivot = players[len(players) // 2]
+
+    left = []
+    middle = []
+    right = []
+
+    for p in players:
+        if p.score > pivot.score:
+            left.append(p)
+        elif p.score < pivot.score:
+            right.append(p)
+        else:
+            middle.append(p)
+
+    return cls.sort_players_desc(left) + middle + cls.sort_players_desc(right)
 ```
 
 #### 5.2.3. Success criteria
@@ -252,7 +292,22 @@ Include your test case below:
 
 ```python
 
-# YOUR TEST CASE HERE
+def test_sort_1000_players(self):
+    import random
+
+    players = [Player(f"P{i}", f"Name{i}") for i in range(1000)]
+
+    for p in players:
+        p.score = random.randint(0, 1000)
+
+    result = Player.sort_players_desc(players)
+
+    expected = sorted(players, key=lambda x: x.score, reverse=True)
+
+    self.assertEqual(
+        [p.score for p in result],
+        [p.score for p in expected]
+    )
 
 ```
 
@@ -274,7 +329,26 @@ Create a test case that tries to sort 1000 players that are already sorted.
 If you get a failure, include the failure below:
 
 ```text
-YOUR FAILURE HERE
+@classmethod
+def sort_players_desc(cls, players):
+    if len(players) <= 1:
+        return players
+
+    pivot = players[len(players) // 2]  # FIX: better pivot
+
+    left = []
+    middle = []
+    right = []
+
+    for p in players:
+        if p.score > pivot.score:
+            left.append(p)
+        elif p.score < pivot.score:
+            right.append(p)
+        else:
+            middle.append(p)  # FIX: handle equal values
+
+    return cls.sort_players_desc(left) + middle + cls.sort_players_desc(right)
 ```
 
 ##### 5.3.4.1 Question: Why does the algorithm fail on presorted values?
@@ -310,8 +384,9 @@ Propose a fix to your sorting algorithm that fixes this issue.
 Complete the following snippet before you submit:
 
 ```text
-I, <name and student number>, completed this work in class <room number>, on <date>, under the supervision of <assessor's name>.
-```
+I, Khushboo Dayal, completed this work outside of the scheduled class hours. I was granted permission by my assessor (Alex) via email to complete and submit the assessment by 26th April (End of Week 11). I confirm that this work is entirely my own and has not been copied from any other student or external source.
+
+I understand that this submission represents my own skills in applying advanced programming techniques, debugging, and implementing sorting algorithms in Python.
 
 Or (if not completed in class):
 

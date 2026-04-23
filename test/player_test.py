@@ -10,7 +10,7 @@ class TestPlayer(unittest.TestCase):
     def setUp(self):
         """Set up a standard player instance for testing."""
         self.test_id = "KD001"
-        self.test_name = "Khushboo"
+        self.test_name = "Charlie"
         self.player = Player(self.test_id, self.test_name)
 
     # ----------------------------
