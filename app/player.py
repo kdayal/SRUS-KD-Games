@@ -58,7 +58,7 @@ class Player:
         if len(players) <= 1:
             return players
 
-        pivot = players[0]
+        pivot = players[len(players) // 2]
         left = []
         right = []
 

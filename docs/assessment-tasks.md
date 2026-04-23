@@ -284,6 +284,11 @@ Provide a reason why this test failed (if you got a recursion errors, you need t
 If your implementation did not fail, you must nevertheless explain why the senior developers algorithm has worse space complexity for presorted values.
 
 > Answer here
+The algorithm fails for presorted input because it always selects the first element as the pivot. 
+
+When the list is already sorted, all elements are placed in one partition (either left or right), resulting in highly unbalanced recursion. This causes the recursion depth to increase significantly, leading to a RecursionError.
+
+This demonstrates the worst-case time complexity of O(n²) and poor space efficiency due to deep recursive calls.
 
 Propose a fix to your sorting algorithm that fixes this issue.
 
