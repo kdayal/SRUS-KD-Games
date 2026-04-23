@@ -53,19 +53,31 @@ class Player:
             self.name == other.name and
             self.score == other.score
         )
+
+    # -------------------
+    # Custom sorting (DESC)
+    # -------------------
     @classmethod
     def sort_players_desc(cls, players):
         if len(players) <= 1:
             return players
 
         pivot = players[len(players) // 2]
+
         left = []
+        middle = []
         right = []
 
-        for p in players[1:]:
-            if p.score > pivot.score:   # DESCENDING
+        for p in players:
+            if p.score > pivot.score:      # higher score → left
                 left.append(p)
-            else:
+            elif p.score < pivot.score:    # lower score → right
                 right.append(p)
+            else:
+                middle.append(p)           # equal scores
 
-        return cls.sort_players_desc(left) + [pivot] + cls.sort_players_desc(right)
+        return (
+            cls.sort_players_desc(left)
+            + middle
+            + cls.sort_players_desc(right)
+        )
