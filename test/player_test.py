@@ -14,7 +14,7 @@ class TestPlayer(unittest.TestCase):
         self.player = Player(self.test_id, self.test_name)
 
     # ----------------------------
-    # Existing tests 
+    # Existing tests
     # ----------------------------
     def test_uid_property(self):
         self.assertEqual(self.player.uid, self.test_id)
@@ -27,7 +27,7 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(str(self.player), expected_string)
 
     # ----------------------------
-    # NEW TEST (sorting - REQUIRED)
+    # Built-in sorting test
     # ----------------------------
     def test_sort_players(self):
         players = [
@@ -36,7 +36,6 @@ class TestPlayer(unittest.TestCase):
             Player("KD003", "Bob")
         ]
 
-        # assign scores
         players[0].score = 10
         players[1].score = 5
         players[2].score = 15
@@ -50,6 +49,66 @@ class TestPlayer(unittest.TestCase):
         ]
 
         self.assertListEqual(sorted_players, expected)
+
+    # ----------------------------
+    # 5.2 Custom sorting test
+    # ----------------------------
+    def test_custom_sort_players(self):
+        players = [
+            Player("KD001", "Khushboo"),
+            Player("KD002", "Alice"),
+            Player("KD003", "Bob")
+        ]
+
+        players[0].score = 10
+        players[1].score = 5
+        players[2].score = 15
+
+        result = Player.sort_players_desc(players)
+
+        expected = [
+            players[2],  # Bob (15)
+            players[0],  # Khushboo (10)
+            players[1]   # Alice (5)
+        ]
+
+        self.assertEqual(result, expected)
+
+    # ----------------------------
+    # 5.3 Test with 1000 players
+    # ----------------------------
+    def test_sort_1000_players(self):
+        import random
+
+        players = [
+            Player(f"P{i}", f"Name{i}") for i in range(1000)
+        ]
+
+        for p in players:
+            p.score = random.randint(0, 1000)
+
+        result = Player.sort_players_desc(players)
+
+        expected = sorted(players, key=lambda x: x.score, reverse=True)
+
+        self.assertEqual(result, expected)
+
+    # ----------------------------
+    # 5.3.4 Test sorted input
+    # ----------------------------
+    def test_sorted_input(self):
+        players = [
+            Player(f"P{i}", f"Name{i}") for i in range(1000)
+        ]
+
+        for i, p in enumerate(players):
+            p.score = i  # already sorted
+
+        result = Player.sort_players_desc(players)
+
+        expected = sorted(players, key=lambda x: x.score, reverse=True)
+
+        self.assertEqual(result, expected)
 
 
 if __name__ == '__main__':
